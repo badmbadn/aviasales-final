@@ -1,0 +1,32 @@
+.filterInner {
+  width: 30%;
+}
+.filter-list {
+  display: flex;
+  flex-direction: column;
+  height: 252px;
+  background-color: #fff;
+  border: 1px solid #DFE5EC;
+  border-radius: 8px;
+}
+.filter-list__title {
+  margin-left: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  line-height: 12px;
+  font-size: 12px;
+  font-family: 'Open Sans';
+  font-weight: 600;
+}
+.checkbox-inner {
+  margin-left: 20px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px){
+  .filterInner {
+    width: 100%;
+  }
+  .filter-list {
+    text-align: center;
+  }
+}

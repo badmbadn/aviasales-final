@@ -1,0 +1,22 @@
+.info-ticket {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 25px;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 600;
+    position: relative;
+}
+
+.info-ticket__direction, .info-ticket__duration, .info-ticket__transfers {
+    width: 30%;
+}
+
+.info-ticket__details {
+    position: absolute;
+    color: #A0B0B9;
+    font-size: 12px;
+    top: -18px;
+    font-weight: 400;
+}

@@ -1,0 +1,38 @@
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+ul,ol {
+  list-style: none;
+}
+.wrapper {
+  width: 1020px;
+  margin: 0 auto;
+  background-color: #f1fcff;
+  height: auto;
+  padding-top: 40px;
+}
+.inner-logo {
+  width: 100px;
+  margin: 0 auto;
+}
+.main {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .wrapper{
+      width: 100%;
+      height: 250vh;
+      padding-top: 10px;
+  }
+  .main{
+      width: 95%;
+      display: block;
+      margin-top: 0;
+  }
+}

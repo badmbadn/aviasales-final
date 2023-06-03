@@ -1,0 +1,25 @@
+.inner-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.radioBtnStyle {
+  height: 50px;
+  width: 33.3%;
+  text-align: center;
+  padding-top: 12px;
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.radioGroupStyle { 
+  width: 100%;
+  border-radius: 8px; 
+}
+
+@media screen and (min-width:320px) and (max-width: 767px) {
+  .inner-tabs {
+    display: block;
+  }
+}
