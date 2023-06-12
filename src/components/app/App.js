@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Logo from '../../images/Logo.svg';
+import Logo from '../../assets/images/Logo.svg';
 import CardList from '../card-list/card-list';
 import Filter from '../filter/filter';
 

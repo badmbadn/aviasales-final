@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { Spin } from 'antd';
 
 import Tabs from '../tabs/tabs';
-import { getTickets, setSearchId } from '../../store/asyncReduser';
+import { getTickets, setSearchId, lookupErrorId } from '../../store/asyncReduser';
 import Service from '../../service/service';
 import Button from '../more-btn/more-btn';
 import ErrorMessage from '../error-message/error-mesage';
@@ -24,42 +24,45 @@ export default function CardList() {
   const sortItem = useSelector((state) => state.sort.sortItem);
   const dispatch = useDispatch();
   const [ticketsNumber, setTicketsNumber] = useState(5);
-  const [processedData, setProcessedData] = useState(sortTicketsList(applyFilters(tickets, filters), 'cheapest'));
+  const processedData = useMemo(
+    () => sortTicketsList(applyFilters(tickets, filters), sortItem),
+    [tickets, filters, sortItem]
+  );
+
   useEffect(() => {
-    service.fetchId().then((id) => {
-      dispatch(setSearchId(id));
-    });
+    async function fetchIds() {
+      try {
+        const id = await service.fetchId();
+        dispatch(setSearchId(id));
+      } catch (e) {
+        dispatch(lookupErrorId(e));
+      }
+    }
+    fetchIds();
   }, []);
 
   useEffect(() => {
     if (searchId && isLoading) {
       dispatch(getTickets(searchId));
     }
-    setProcessedData(sortTicketsList(applyFilters(tickets, filters), sortItem));
-  }, [searchId, isLoading, tickets.length, sortItem, filters, error, dispatch]);
+  }, [searchId, isLoading, tickets.length]);
 
   const ticketList = processedData.length
     ? processedData.slice(0, ticketsNumber).map((item) => createNewTicket(item))
     : [];
 
-  let data = ticketList.length ? (
-    <>
-      {ticketList}
-      <Button className={classes['more-btn']} onClick={() => setTicketsNumber(ticketsNumber + 5)} />
-    </>
-  ) : (
-    <div>Рейсов, подходящих под заданные фильтры, не найдено</div>
-  );
+  let data = <>{ticketList}</>;
+  let btn = <>{<Button className={classes['more-btn']} onClick={() => setTicketsNumber(ticketsNumber + 5)} />}</>;
 
-  const spinner = isLoading && (
+  const spinner = isLoading && !error && (
     <div className={classes.spinner}>
       <Spin />
     </div>
   );
 
+  const info = 'Рейсов, подходящих под заданные фильтры, не найдено';
   let errorMessage;
   if (error) {
-    data = null;
     errorMessage = <ErrorMessage />;
   }
 
@@ -67,8 +70,9 @@ export default function CardList() {
     <div className={classes['cards']}>
       <Tabs />
       {spinner}
-      {errorMessage}
-      <ul className={classes['card-list']}>{data}</ul>
+      {!isLoading && !ticketList.length && !error ? info : null}
+      <ul className={classes['card-list']}>{error ? errorMessage : data}</ul>
+      {!ticketList.length || error ? null : btn}
     </div>
   );
 }

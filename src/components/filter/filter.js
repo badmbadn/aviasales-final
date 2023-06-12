@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -8,12 +8,7 @@ import classes from './filter.module.scss';
 
 function Filter() {
   const checked = useSelector((state) => state.filter.checked);
-  const [checkedList, setCheckedList] = useState({ ...checked });
-  console.log(checkedList);
-  useEffect(() => {
-    setCheckedList(checked);
-  }, [checked]);
-
+  console.log(checked);
   const filtersData = {
     all: 'Все',
     0: 'Без пересадок',
@@ -23,7 +18,7 @@ function Filter() {
   };
 
   const filterListCheckbox = Object.entries(filtersData).map((item) => (
-    <Checkboxes value={item[1]} amount={item[0]} checked={checkedList[item[0]]} key={item[0]} />
+    <Checkboxes value={item[1]} amount={item[0]} checked={checked[item[0]]} key={item[0]} />
   ));
 
   return (
@@ -40,4 +35,4 @@ Filter.defaultProps = { checked: {} };
 
 Filter.propTypes = { checked: PropTypes.shape({}) };
 
-export default Filter;
+export default memo(Filter);

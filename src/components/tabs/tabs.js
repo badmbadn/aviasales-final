@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Radio } from 'antd';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,7 +7,8 @@ import { sortChange } from '../../store/sortReducer';
 
 import classes from './tabs.module.scss';
 
-export default function Tabs() {
+function Tabs() {
+  console.log('tabs');
   const dispatch = useDispatch();
   const updateSort = (params) => dispatch(sortChange(params));
   const btnList = {
@@ -28,6 +29,8 @@ export default function Tabs() {
     </div>
   );
 }
+
+export default memo(Tabs);
 
 Tabs.defaultProps = { updateSort: () => null };
 
