@@ -1,1 +1,1 @@
-https://aviasales-final-six.vercel.app/
+https://aviasales-final-cu3g.vercel.app/
