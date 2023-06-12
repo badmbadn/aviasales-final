@@ -8,7 +8,6 @@ import { sortChange } from '../../store/sortReducer';
 import classes from './tabs.module.scss';
 
 function Tabs() {
-  console.log('tabs');
   const dispatch = useDispatch();
   const updateSort = (params) => dispatch(sortChange(params));
   const btnList = {

@@ -8,7 +8,6 @@ import classes from './filter.module.scss';
 
 function Filter() {
   const checked = useSelector((state) => state.filter.checked);
-  console.log(checked);
   const filtersData = {
     all: 'Все',
     0: 'Без пересадок',
