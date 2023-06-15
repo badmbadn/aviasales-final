@@ -6,7 +6,7 @@ export default class Service extends Component {
     try {
       const res = await fetch(`${_baseURL}/search`);
       if (!res.ok) {
-        throw new Error(`Could not fetch, received ${res.status}`);
+        throw Error(`Could not fetch, received ${res.status}`);
       }
       const data = await res.json();
       return data.searchId;
@@ -20,9 +20,9 @@ export default class Service extends Component {
 
   async getTickets(searchId) {
     try {
-      const res = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`);
+      const res = await fetch(`${_baseURL}/tickets?searchId=${searchId}`);
       if (!res.ok) {
-        throw new Error('Fetch error');
+        throw Error('Fetch error');
       }
       return res.json();
     } catch (e) {

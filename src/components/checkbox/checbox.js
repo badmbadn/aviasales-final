@@ -13,7 +13,7 @@ const Checkboxes = ({ value, amount, checked }) => {
   return (
     <div className={classes['checkbox']}>
       <Checkbox id={amount} type="checkbox" checked={checked} onChange={() => updates(amount)}>
-        <label>{value}</label>
+        <label htmlFor={amount}>{value}</label>
       </Checkbox>
     </div>
   );

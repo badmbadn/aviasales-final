@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
 import { Spin } from 'antd';
 
 import Tabs from '../tabs/tabs';
@@ -15,7 +14,12 @@ import { sortTicketsList, applyFilters } from '../../utilitary/sup-functions';
 import classes from './card-list.module.scss';
 const service = new Service();
 const createNewTicket = (item) => (
-  <Ticket price={item.price} carrier={item.carrier} routeInfo={item.segments} key={uuidv4()} />
+  <Ticket
+    price={item.price}
+    carrier={item.carrier}
+    routeInfo={item.segments}
+    key={`${item.price}${item.carrier}${item.segments[0].stops}`}
+  />
 );
 
 export default function CardList() {
